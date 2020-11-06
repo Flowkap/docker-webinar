@@ -1,0 +1,725 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script type="text/javascript">
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<style type="text/css">
+			body:after {
+			    content: url(./images/flowkap.png);
+			    position: fixed;
+			    bottom: 0;
+			    left: 1em;
+			}
+			.reveal section img {
+				background:none;
+				border:none;
+				box-shadow:none;
+			}
+			.reveal img.trollface {
+				width:200px;
+				margin-right: 1em;
+				display: table-cell;
+				vertical-align: middle;
+				max-width: unset;
+				max-height: unset;
+			}
+			.reveal p.trollface {
+				display: table-cell;
+				vertical-align: middle;
+				font-style: italic;
+			}
+			.reveal iframe.shellinabox {
+				width: 1000px;
+				height: 500px;
+				/*background: gray;*/
+			}
+			.reveal pre code {
+				max-height: 500px;
+			    font-size: 80%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>Docker Webinar</h3>
+					<span>Starting in </span><span id="startTimer"></span>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>Welcome to my webinar about</h3>
+					<img src="./images/docker_logo.png">
+					<aside class="notes">
+						<p>Say hi and thank audience :)</p>
+						<p>Ask if Audio / Video is OK</p>
+					</aside>
+				</section>
+				<section>
+					<h3>About me</h3>
+					<ul>
+						<li>My name is Florian Kappes</li>
+						<li>I'm 31 years old</li>
+						<li>I work for SWARCO Traffic Systems in Germany with my office located in Trier</li>
+						<li>I've got 9 years of software development experience</li>
+						<li>This is my first live webinar ever!</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Content</h3>
+					<ol>
+						<li>Presenting Docker ( 10-15 minutes )</li>
+						<li>Let's Code ( 20-30 minutes )</li>
+						<li>Reference projects</li>
+						<li>Questions & Answers</li>
+					</ol>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx     xxx     xxx    xxxx     xxxx   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx xxx xxx xxx xxx xx  xxxxx xxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx xxx xxx xxx xxx xx xxxxxx xxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx     xxx     xxx   xxxxxxx xxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx xxxxxxx xxx xxx xxx xxxxx xxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx xxxxxxx xxx xxx xxx xxxxx xxxxxx   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h1>Part 1 </h1>
+					<h3>Presenting Docker</h3>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>What is docker? An excerpt!</h3>
+					<ul>
+						<li>It's an application runtime environment</li>
+						<li>You can pack your applications in a <strong><i>standard</i></strong> way</li>
+						<li>It's your system description</li>
+						<li>You can easily build multi service systems with it</li>
+					</ul>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>Containers & Services ...</h3>
+					<div style="display: table;">
+						<img src="./images/troll_thinking.png" class="trollface">
+						<p class="trollface">"I already use something like that. Virtual machines!"</p>
+					</div>
+					<aside class="notes">
+						Refer to the common docker introductions:<br><br>
+						- Build<br>
+						- Deploy<br>
+						- Operations<br><br>
+						Most importanly diffrence imho is to VMs<br>
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section data-transition="slide-in fade-out">
+					<h3>Evolution!</h3>
+					<img src="./images/pangea.png">
+					<aside class="notes">
+						<p>Back in the days we had monolithic backends built out of modular libraries.</p>
+						<p>- single build toolchain</p>
+						<p>- hosting requirements weren't too diverse</p>
+						<p>VM was sufficient</p>
+					</aside>
+				</section>
+				<section data-transition="fade-in slide-out">
+					<h3>Happens!</h3>
+					<img src="./images/today.png">
+					<aside class="notes">
+						- fragmented<br>
+						- Multi rollout environments<br>
+						- VMs are bad to automize<br>
+						<p>This leads us to a problem...</p>
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>The Matrix from hell!</h3>
+					<div style="display: table;">
+						<img src="./images/troll_scared.png" class="trollface">
+						<p class="trollface">"Ahhhh ... CREEPY ... Why ... What ...?"</p>
+					</div>
+					<p><br>Installing multiple independent services on a single machine, real or virtual, is a recipe for disaster. This is called the matrix of hell!</p>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>An example</h3>
+					<img src="./images/example-matrix.png">
+					<aside class="notes">
+						- Multiple different packages<br>
+						- Possible version conflicts<br>
+						>> Switch to next slide!<br>
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>It's all about containers!</h3>
+					<img src="./images/moby_dock.png">
+					<aside class="notes">
+						- refer to sea containers
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>The solution: DOCKER</h3>
+					<img src="./images/result-matrix.png">
+					<aside class="notes">
+						- Thats what docker does for software<br>
+						- Docker equalizes development and operations
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>So what is the difference to a VM?</h3>
+					<img src="./images/containers-vms-together.png">
+					<p>Containers all run on top of the same host OS and take up substantially less resources!</p>
+					<aside class="notes">
+						- most right: typical VM<br>
+						- Left: Docker. Only libs and app, rest is host OS and docker engine<br>
+						- middle: Docker in VM
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>What exactly is a docker container?</h3>
+					<img src="./images/image_layers.png">
+					<p>It's all about layers!</p>
+					<aside class="notes">
+						- compare image to Class<br>
+						- container to object instance<br>
+						- Layers to inheritance chain / composition<br><br>
+						- Actually no VM<br>
+						- Image contains meta data on how to run a container from it<br>
+						- Images merge together as file system union<br>
+						- Deletions are only marked in each containers writable layer<br>
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>Docker in numbers</h3>
+					<ul>
+						<li>Over 14 million docker hosts</li>
+						<li>Billions of image pulls from docker hub</li>
+						<li>Thousands of contributors</li>
+						<li>Docker groups in more than 280 cities</li>
+						<li>Overall Docker adoption at around 35%</li>
+					</ul>
+					<aside class="notes">
+						http://electric-cloud.com/blog/2017/05/docker-numbers-dockercon-shines-light-containers-enterprise/
+					</aside>
+				</section>
+				<section>
+					<h3>Lets try it out!</h3>
+					<div style="display: table;">
+						<img src="./images/troll_convinced.png" class="trollface">
+						<p class="trollface">"I'm a bit scared that it's difficult to use but I say lets face it and try it out!"</p>
+					</div>
+					<aside class="notes">
+						- First section finished<br>
+						- We'll see its not difficult at all
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx     xxx     xxx    xxxx     xxxx   xx   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx xxx xxx xxx xxx xx  xxxxx xxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx xxx xxx xxx xxx xx xxxxxx xxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx     xxx     xxx   xxxxxxx xxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx xxxxxxx xxx xxx xxx xxxxx xxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx xxxxxxx xxx xxx xxx xxxxx xxxxxx   xx   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h1>Part 2</h1>
+					<h3>Let's Code</h3>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<section>
+						<h3>Install docker</h3>
+						<p>To get the latest stable version, on all systems use the official docker install script:<br><br></p>
+						<pre><code class="bash" data-trim data-noescape>
+						#https://github.com/docker/docker-install
+						curl -sSL https://get.docker.com/ | sh
+					 	</code></pre>
+					 	<p><br>Official documentation: <a href="https://docs.docker.com/">docs.docker.com</a></p>
+
+						<aside class="notes">
+							- Works on centos, fedora, debian/ubuntu as well as the arm derivates of debian (raspbian, debian, ubuntu)<br>
+							- Installs the repo dependency and registers appropriate key,<br>
+							- install latest stable release<br>
+							<p>Usually you can install via package manager, but its an old version most of the time</p>
+							<p>Code!</p>
+						</aside>
+					</section>
+					<section>
+						<h3>Check version and images</h3>
+						<iframe class="shellinabox" data-src="http://localhost:4200/revealjs/"></iframe>
+						<aside class="notes">
+							<pre><code class="bash" data-trim data-noescape>
+								docker -v
+								docker -h | less
+								docker images
+							</code></pre>
+						</aside>
+					</section>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>Getting Images</h3>
+					<p>Official images reside on <a href="https://hub.docker.com/">hub.docker.com</a> which is the default registry for Docker:</p>
+					<img src="./images/dockerhub.png">
+					<aside class="notes">
+						- You can host your own registry (private) of course as docker!<br>
+						- Use registry enabled servers like Sonartype Nexus
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<section>
+						<h3>Basic operations</h3>
+						<ol>
+							<li>
+								<p>Download an image</p>
+								<pre><code class="bash" data-trim data-noescape>
+								docker pull debian
+							 	</code></pre>
+							</li>
+							<li>
+								<p>Run a container</p>
+								<pre><code class="bash" data-trim data-noescape>
+								docker run -it debian
+							 	</code></pre>
+							</li>
+							<li>
+								<p>List running containers</p>
+								<pre><code class="bash" data-trim data-noescape>
+								docker ps
+							 	</code></pre>
+							</li>
+							<li>
+								<p>Remove containers</p>
+								<pre><code class="bash" data-trim data-noescape>
+								docker rm 'id'
+							 	</code></pre>
+							</li>
+						</ol>
+						<aside class="notes">
+							CODE!
+						</aside>
+					</section>
+					<section>
+						<h3>Running containers</h1>
+
+						<iframe class="shellinabox" data-src="http://localhost:4200/revealjs/"></iframe>
+						<aside class="notes">
+							<p>docker run -it debian /bin/bash</p>
+							- show adding files <br>
+							- close container
+							<p>docker start -i 'container'</p>
+							- exit again ant start with --rm
+							<p>docker run -it --rm debian bash</p>
+							- run same again. See files are gone<br>
+							- Show remove command
+						</aside>
+					</section>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<section>
+						<h3>Advanced operations</h3>
+						<ol>
+							<li>
+								<p>Environment variables / volumes and published ports</p>
+								<pre><code class="bash" data-trim data-noescape>
+								docker run -E ENV_NAME -V HOST:GUEST -p HOST:GUEST...
+							 	</code></pre>
+							</li>
+							<li>
+								<p>Running named container in daemon mode</p>
+								<pre><code class="bash" data-trim data-noescape>
+								docker run --name NAME -d
+							 	</code></pre>
+							</li>
+							<li>
+								<p>Attach to running containers</p>
+								<pre><code class="bash" data-trim data-noescape>
+								docker exec CONTAINER_ID COMMAND
+							 	</code></pre>
+							</li>
+						</ol>
+						<aside class="notes">
+							CODE!
+						</aside>
+					</section>
+					<section>
+						<h3>Hosting postgreSQL</h3>
+
+						<iframe class="shellinabox" data-src="http://localhost:4200/revealjs/"></iframe>
+						<aside class="notes">
+							<pre><code class="bash" data-trim data-noescape>
+							docker run --name postgres-9-6 -e POSTGRES_PASSWORD=42 -d -p 5432:5432 postgres:9.6
+							docker ps
+							docker exec -it postgres-9-6 bash
+							psql -U postgres
+							\l && \q
+
+							docker run -it --rm --link postgres-9-6 qpostgres:9.6 bash
+							#password 42
+							psql -h postgres-9-6 -p 5432 -U postgres
+							</code></pre>
+						</aside>
+					</section>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<section>
+					<h3>A simple service</h3>
+						<pre><code class="java" data-trim data-noescape>
+						import java.io.IOException;
+						import java.io.OutputStream;
+						import java.net.InetSocketAddress;
+						import com.sun.net.httpserver.HttpExchange;
+						import com.sun.net.httpserver.HttpHandler;
+						import com.sun.net.httpserver.HttpServer;
+
+						public class Tardis {
+
+						    public static void main(String[] args) throws Exception {
+						        HttpServer server = HttpServer.create(new InetSocketAddress(3000), 0);
+						        server.createContext("/tardis", new MyHandler());
+						        server.setExecutor(null);
+						        server.start();
+						    }
+
+						    static class MyHandler implements HttpHandler {
+						        @Override
+						        public void handle(HttpExchange t) throws IOException {
+						            String response = "It's bigger on the inside!\n";
+						            t.sendResponseHeaders(200, response.length());
+						            OutputStream os = t.getResponseBody();
+						            os.write(response.getBytes());
+						            os.close();
+						        }
+						    }
+						}
+					 	</code></pre>
+						<p>We can operate time machines!</p>
+						<aside class="notes">
+							- We already loaded, started and operated images<br>
+							- Lets build our first docker image ourselves<br>
+							CODE!
+						</aside>
+					</section>
+					<section>
+						<h3>Building the first image</h3>
+
+						<iframe class="shellinabox" data-src="http://localhost:4200/revealjs/"></iframe>
+						<aside class="notes">
+							<pre><code class="bash" data-trim data-noescape>
+								javac Tardis.java
+								java Tardis &
+								curl localhost:3000/tardis
+								kill again!
+
+								#Container bauen: nano Dockerfile
+								FROM openjdk:9-jre-slim
+								COPY *.class /
+								ENTRYPOINT ["java"]
+								CMD ["Tardis"]
+
+								docker run -d -p 3000:3000 --name tardis tardis
+							</code></pre>
+						</aside>
+					</section>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>Reality isn't simple</h3>
+					<img src="./images/wirewrap.png">
+					<aside class="notes">
+						- The examples were very basic, but even more complex apps are bundled the same way<br>
+						- You won't want to create each run command by hand and link containers<br>
+						- We need auto running and restarting services<br>
+						- We need networking between containers and so on.. <br>
+						- There are tools for all that
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>Using Compose Stack or Swarm?</h3>
+					<ul>
+						<li>Actually you're going to use all of them!</li>
+						<li>But you're not going to use 'docker-compose' tool..</li>
+						<li><i><strong>Swarm</strong></i> is for managing clusters</li>
+						<li><i><strong>Stack</strong></i> is for deploying applications</li>
+						<li><i><strong>Compose</strong></i> defines the application tier's relations</li>
+					</ul>
+					<aside class="notes">
+						- docker-compose is a definition format in yaml<br>
+						- The tool is written in python and there are possible conflicts<br>
+						- Multi instances problem with compose
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section data-transition="slide-in fade-out">
+					<h3>What is a swarm</h3>
+					<img src="./images/swarm.png">
+					<aside class="notes">
+						- A swarm executes stacks defined by a compose file like the docker compose cmd tool<br>
+						- A swarm consists of a swarm manager & >1 swarm nodes<br>
+						- Stacks and its containers are distributed amongst the nodes<br>
+						- A swarm acts as one docker engine on the docker cli<br>
+						- each stack has its own context (network and containers)<br>
+						- Each service within a stack can run multiple instances (tasks / replication)<br>
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section data-transition="fade-in slide-out">
+					<h3>Single node swarm</h3>
+					<img src="./images/single_node_swarm.png">
+					<aside class="notes">
+						- Simplest swarm is with only a single node<br>
+						- We donn't cover clustering and replication in this webinar<br>
+						- Still you won't need to change setup<br>
+						- All other benefits still
+						- Initializing the swarm is easy!
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>Initializing a swarm</h3>
+					<ul>
+						<li>Usually ou need just one command
+							<pre><code class="bash" data-trim data-noescape>
+							docker swarm init
+						 	</code></pre>
+					 	</li>
+					 	<li>
+						 	but sometimes..
+							<pre><code class="bash" data-trim data-noescape>
+							docker swarm init --advertise-addr 'interface'
+						 	</code></pre>
+						</li>
+					</ul>
+					<aside class="notes">
+						That really isn't difficult, so lets take a look at the most important thing. The stack..
+					</aside>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>Defining the stack</h3>
+					<pre><code class="yaml" data-trim data-noescape>
+					version: '3'
+					services:
+					    grafana:
+					        image: grafana/grafana:latest
+					        volumes:
+					            - /webinar/grafana/:/var/lib/grafana/
+					        environment:
+					            - GF_SECURITY_ADMIN_PASSWORD=secret
+					        ports:
+					            - "3000:3000"
+					    influxdb:
+					        image: influxdb:latest
+					        volumes:
+					            - /webinar/influxdb/:/var/lib/influxdb/
+					    telegraf:
+					        image: telegraf:latest
+					        volumes:
+					            - /webinar/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
+					            - /:/rootfs/
+					            - /var/run/docker.sock:/var/run/docker.sock
+					        environment:
+					            - HOST_PROC=/rootfs/proc
+					            - HOST_SYS=/rootfs/sys
+					            - HOST_ETC=/rootfs/etc
+				 	</code></pre>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<section>
+						<h3>Self hosted monitoring</h3>
+						<iframe class="shellinabox" data-src="http://localhost:3000/dashboard/db/telegraf-metrics?orgId=1"></iframe>
+					</section>
+					<section>
+						<h3>Running the stack</h3>
+
+						<iframe class="shellinabox" data-src="http://localhost:4200/revealjs/"></iframe>
+						<aside class="notes">
+							<pre><code class="bash" data-trim data-noescape>
+								docker swarm init
+								docker stack deploy -c monitoring.yml webinar && watch docker service ls
+							</code></pre>
+							<p>Take a look!</p>
+							<pre><code class="bash" data-trim data-noescape>
+								docker rm webinar
+							</code></pre>
+							<p>Updating: redeploy</p>
+						</aside>
+					</section>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>Summary</h3>
+					<ul>
+						<li>Easy Deployment</li>
+						<li>Same behaviour on testing and production systems</li>
+						<li>Config gets part of documentation</li>
+						<li>Easier maintenance and continuous deployment</li>
+						<li>Modularity is easier</li>
+						<li>Clusters & replication at hand</li>
+					</ul>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>And Mr. Trollface?</h3>
+					<div style="display: table;">
+						<img src="./images/troll_exited.png" class="trollface">
+						<p class="trollface">"I can't wait to use docker myself!"</p>
+					</div>
+					<aside class="notes">
+						- Refer to the common docker introductions:<br>
+						- Build<br>
+						- Deploy<br>
+						- Operations<br>
+						- Most importanly diffrence imho is to VMs<br>
+					</aside>
+				</section>
+				<section>
+					<h3>This webinar was created with</h3>
+					<p>REVEAL.JS</p>
+					<p>Shellinabox</p>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>one last thing..</h3>
+					<p>Please participate at the webinar poll:</p>
+					<a href="https://goo.gl/forms/oWVWBhWyRFduFOyq1">https://goo.gl/forms/oWVWBhWyRFduFOyq1</a>
+					<p>It's just 4 questions and takes less than a minute!</p>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h1>THANK YOU!</h1>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx     xxx     xxx    xxxx     xxxx   xx   xx   xx   xxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx xxx xxx xxx xxx xx  xxxxx xxxxxxx xxxx xxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx xxx xxx xxx xxx xx xxxxxx xxxxxxx xxxx xxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx     xxx     xxx   xxxxxxx xxxxxxx xxxx xxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx xxxxxxx xxx xxx xxx xxxxx xxxxxxx xxxx xxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxx xxxxxxx xxx xxx xxx xxxxx xxxxxx   xx   xx   xx   xxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h1>Part 4</h1>
+					<h3>Q&A</h3>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>What about Windows?</h3>
+					<ul>
+						<li>Windows 10 Anniversary Edition or Creators Update (Professional or Enterprise) & Server 2016</li>
+						<li>Only Windows based images and by using Hyper V</li>
+						<li>Linux containers by using docker machine or new HyperV based MobyLinuxVM as docker host</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Multiple processes in one Docker container?</h3>
+					<p>This approach is discouraged for most use cases. For maximum efficiency and isolation, each container should address one specific area of concern.</p>
+				</section>
+				<section>
+					<h3>Is docker for free?</h3>
+					<p>Docker is available as Community Edition (CE) for free and as Enterprise Edition (EE) subscription with software, support and certification.</p>
+					<p>Docker itself is open source and licensed under Apache License 2.0</p>
+				</section>
+				<section>
+					<h3>What about security?</h3>
+					<p>When you start a container with docker run, behind the scenes Docker creates a set of namespaces and control groups for the container.</p>
+					<p>Processes running within a container cannot see, and even less affect, processes running in another container, or in the host system.</p>
+					<p>Each container also gets its own network stack, meaning that a container doesn’t get privileged access to the sockets or interfaces of another container.</p>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+				<section>
+					<h3>Your Questions?</h3>
+					<iframe class="shellinabox" data-src="http://localhost:4200/revealjs/"></iframe>
+				</section>
+				<!-- new section xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+				<section>
+					<h1>The end</h1>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				width: 1000,
+				height: 800,
+				// showNotes: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+			setTimeout(function () {
+				// Reveal.slide(Reveal.getTotalSlides());
+				// Reveal.slide(32);
+			}, 1000)
+		</script>
+		<script>
+			function secondsToTime(duration) {
+		        var seconds = parseInt((duration)%60),
+		            minutes = parseInt((duration/60));
+
+		        minutes = (minutes < 10) ? "0" + minutes : minutes;
+		        seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+		        return minutes + " min " + seconds + " s";
+		    }
+
+			var someDate = new Date("2017-09-28T12:00:00.000Z");
+			var now = new Date();
+			var seconds = (someDate.getTime() - now.getTime()) / 1000;
+			// var seconds = 120;//(someDate.getTime() - now.getTime()) / 1000;
+
+			document.getElementById('startTimer').innerHTML = secondsToTime(seconds);
+			var interval = setInterval(function() {
+			    document.getElementById('startTimer').innerHTML = secondsToTime(--seconds);
+
+			    if (seconds <= 0) {
+					if (Reveal.isFirstSlide()) {
+						Reveal.next();
+					}
+			        clearInterval(interval);
+			    }
+			}, 1000);
+		</script>
+	</body>
+</html>
+
+
+<!-- ssudo shellinaboxd --localhost-only -p 4321 -t -s evealjs/:${USER}:${USER}:${PWD}:bash --css=shellinabox.css -->
